@@ -36,7 +36,7 @@ then execute:
 
 wait et voi'la. results will be shown whilst tests run and you'll be presented with a summary when it finishes. eg:
 
-<code>server_a (1.1.1.1) > server_c(3.3.3.3):22 - open/connected
+<pre>server_a (1.1.1.1) > server_c(3.3.3.3):22 - open/connected
 server_b (2.2.2.2) > server_c(3.3.3.3):22 - open/connected
 server_a (1.1.1.1) > server_d(4.4.4.4)):22 - open/connected
 server_b (2.2.2.2) > server_d(4.4.4.4)):22 - open/connected
@@ -55,7 +55,7 @@ not tested/no access      0
 unknown                   0
 --------------------------------------------
 log file: result.fwtest.d60b1b34.log
---------------------------------------------</code>
+--------------------------------------------</pre>
 
 # last resort notes
 
