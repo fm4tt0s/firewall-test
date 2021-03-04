@@ -65,8 +65,30 @@ fwtest ()
             _dip=$(nslookup "${_dest}" | grep Address | tail -1 | cut -d':' -f2- | tr -d " ");
         fi;
         export _source _dip _sip _dest _port;
+	if [[ "${_sip}" =~ \#53$ ]]; then
+            _sip="DNS ERROR"
+        fi
+
+        if [[ "${_sip}" =~ \#53$ ]]; then
+            _dip="DNS ERROR"
+        fi
+
         printf "%s" "${_source} (${_sip}) > ${_dest}(${_dip}):${_port} - ";
         printf "%s" "${_source} (${_sip}) > ${_dest}(${_dip}):${_port} - " >> "${_logfile}";
+
+	if [[ "${_sip}" ==  "DNS ERROR" ]]; then
+            echo "ERROR: ${_source} is unreacheable" | tee -a "${_logfile}"
+            ((_unreachCount++))
+            ((_totalCount++))
+            continue
+        fi
+
+        if [[ "${_dip}" ==  "DNS ERROR" ]]; then
+            echo "ERROR: ${_dest} is unreacheable" | tee -a "${_logfile}"
+            ((_unreachCount++))
+            ((_totalCount++))
+            continue
+        fi
         
         if ! ncat "${_source}:22"; then
             echo "ERROR: ${_source} is unreacheable" | tee -a "${_logfile}";
